@@ -10,12 +10,12 @@ class Todo(BaseModel):
 
 # Assignment Work
 students = [{
-    "id": 00 ,
+    "rollnumber": 00 ,
     "name" : "Shahroz",
     "age" : "25",
     "grade":"A"
 },{
-    "id": 11 ,
+    "rollnumber": 11 ,
     "name" : "Naveed",
     "age" : "55",
     "grade":"A"
@@ -26,20 +26,31 @@ students = [{
 def get_students():
     return students
 # # Get students with  id
-@app.get('/students/{id}')
-def getSingleStudent(id):
-    return id
+@app.get('/students/{rollnumber}')
+def getfilteredStudent(rollnumber):
+    print(rollnumber)
+    filteredStudents = list(filter(lambda item: item[rollnumber] == student))
+    return getfilteredStudent
 #  Add students
 @app.post('/students/addNew')
-def addStudent(id):
-    students.append[(id)]
-    return{
-        "id":id
-    }
+def addStudent(rollnumber,name):
+    global students
+    students.append({"rollnumber":int(rollnumber),"name":name})
+    return "Student Created"
 #  Update student
-@app.put('/students/update/{id}')
+@app.put('/students/update/{rollnumber}')
+def updateStudent(rollnumber,name):
+    global students
+    updatedStudents = list(map(updateStudent,students)) 
+    print("Updated student")
+    students = updatedStudents
+    return "Student Updated"
 #  Delete student
-@app.delete('/students/delete/{id}')
+@app.delete('/students/delete/{rollnumber}')
+def deleteStudent(rollnumber,name):
+    global students
+    students.remove({"rollnumber":rollnumber, "name":name})
+    return "Student Deleted"
 
 
 # @app.get("/students")
