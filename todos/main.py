@@ -5,7 +5,7 @@ app = FastAPI()
 
 class Todo(BaseModel):
     id:int
-    title:str = "Any default Tilte"
+    title:str = "Any default"
     description:str
 
 # Assignment Work
