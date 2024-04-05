@@ -29,7 +29,7 @@ def get_students():
 @app.get('/students/{rollnumber}')
 def getfilteredStudent(rollnumber):
     print(rollnumber)
-    filteredStudents = list(filter(lambda item: item[rollnumber] == student))
+    filteredStudents = list(filter(lambda item: item[rollnumber] == students))
     return getfilteredStudent
 #  Add students
 @app.post('/students/addNew')
@@ -38,18 +38,24 @@ def addStudent(rollnumber,name):
     students.append({"rollnumber":int(rollnumber),"name":name})
     return "Student Created"
 #  Update student
+def updateStudents(students):
+    if students["rollnumber"] == 11:
+        return {
+            "rollnumber": 11,
+            "name": "updatedName"
+      }
 @app.put('/students/update/{rollnumber}')
 def updateStudent(rollnumber,name):
     global students
-    updatedStudents = list(map(updateStudent,students)) 
+    updatedStudents = list(map(updateStudents,students)) 
     print("Updated student")
-    students = updatedStudents
+    students = updateStudents
     return "Student Updated"
 #  Delete student
 @app.delete('/students/delete/{rollnumber}')
 def deleteStudent(rollnumber,name):
     global students
-    students.remove({"rollnumber":rollnumber, "name":name})
+    students.pop({"rollnumber":rollnumber, "name":name})
     return "Student Deleted"
 
 
